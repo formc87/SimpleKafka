@@ -28,13 +28,44 @@ public class MessageEntity {
     @Column(nullable = false)
     private Instant receivedAt;
 
+    /** 메시지를 받은 토픽 이름 */
+    @Column(nullable = false, length = 255)
+    private String topic;
+
+    /** 메시지가 속한 파티션 번호 */
+    @Column(nullable = false)
+    private Integer partition;
+
+    /** 파티션 내 오프셋 값 */
+    @Column(name = "record_offset", nullable = false)
+    private Long offset;
+
+    /** 메시지를 전달한 리더 브로커 id (조회 실패 시 null) */
+    @Column(name = "leader_broker_id")
+    private Integer leaderBrokerId;
+
+    /** 리더 브로커 호스트명 */
+    @Column(name = "leader_host", length = 255)
+    private String leaderHost;
+
+    /** 리더 브로커 포트 */
+    @Column(name = "leader_port")
+    private Integer leaderPort;
+
     protected MessageEntity() {
         // JPA가 사용할 기본 생성자
     }
 
-    public MessageEntity(String payload, Instant receivedAt) {
+    public MessageEntity(String payload, Instant receivedAt, String topic, Integer partition, Long offset,
+            Integer leaderBrokerId, String leaderHost, Integer leaderPort) {
         this.payload = payload;
         this.receivedAt = receivedAt;
+        this.topic = topic;
+        this.partition = partition;
+        this.offset = offset;
+        this.leaderBrokerId = leaderBrokerId;
+        this.leaderHost = leaderHost;
+        this.leaderPort = leaderPort;
     }
 
     public Long getId() {
@@ -47,5 +78,29 @@ public class MessageEntity {
 
     public Instant getReceivedAt() {
         return receivedAt;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public Integer getPartition() {
+        return partition;
+    }
+
+    public Long getOffset() {
+        return offset;
+    }
+
+    public Integer getLeaderBrokerId() {
+        return leaderBrokerId;
+    }
+
+    public String getLeaderHost() {
+        return leaderHost;
+    }
+
+    public Integer getLeaderPort() {
+        return leaderPort;
     }
 }
