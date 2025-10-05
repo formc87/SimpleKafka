@@ -1,0 +1,15 @@
+# Maven 빌드 아웃풋
+**/target/
+
+# Node.js 의존성 폴더
+node_modules/
+
+# 프론트엔드 빌드 결과물
+**/dist/
+
+# IntelliJ IDEA 등 IDE 설정
+.idea/
+*.iml
+
+# OS 별 숨김 파일
+.DS_Store
