@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 수신한 메시지를 조회하기 위한 REST 컨트롤러.
+ * 데이터베이스에 저장된 수신 메시지를 조회하기 위한 REST 컨트롤러.
  */
 @RestController
 @RequestMapping("/messages")
