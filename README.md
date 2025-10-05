@@ -1,40 +1,60 @@
-# Spring Boot 환경에서 Kafka 실습 프롬프트
+# Spring Boot 환경에서 Kafka 실습 예제
+
+이 저장소는 README의 가이드에 따라 Kafka 환경을 학습할 수 있도록 두 개의 스프링 부트 모듈(이벤트 프로듀서, 이벤트 컨슈머)과 Kafka/Zookeeper를 실행하는 Docker Compose 파일을 제공합니다.
 
 ## 1. Kafka 및 환경 세팅
 
-- Docker를 활용하여 Kafka 및 Zookeeper 컨테이너 생성
-  - Kafka와 Zookeeper 도커 이미지를 다운로드 받고 실행
+- `docker-compose.yml` 파일을 이용해 Kafka와 Zookeeper 컨테이너를 실행합니다.
+  ```bash
+  docker compose up -d
+  ```
+- Java 17 이상과 Maven이 설치된 환경에서 프로젝트를 빌드합니다.
 
-- Spring Boot 프로젝트 생성
-  - Maven, Java 17 이상, Lombok, Spring Web, Spring for Kafka 포함
-  - 프로젝트 이름 예: kafka-demo
+## 2. 모듈 구조
 
-## 2. 모듈화 구조 구성
+| 모듈 | 설명 |
+| --- | --- |
+| `event-producer` | REST API(`/publish`)를 통해 메시지를 Kafka로 전송하고, 설정에 따라 자동 발행 기능을 제공합니다. |
+| `event-consumer` | Kafka 토픽을 구독하여 메시지를 수신하고, `/messages` API로 최근 메시지를 확인할 수 있습니다. |
 
-### 서버 1: 이벤트 발생 서버
-- Spring Boot REST API로 이벤트 수동/자동 생성
-- 예: `/publish` 엔드포인트 호출로 메시지를 Kafka에 전송
+각 모듈은 독립적으로 실행 가능한 Spring Boot 애플리케이션이며, 공통 토픽 이름과 Kafka 접속 정보를 `application.yml`에서 공유합니다.
 
-### 서버 2: Kafka 연동 서버
-- Kafka 메시지 구독 Consumer 구현
-- 수신된 메시지 콘솔 출력 또는 간단 UI에서 확인 가능
+## 3. 빌드 및 실행
 
-### 실행 방식
-- 두 서버를 IDE 내 모듈 또는 별도 프로젝트로 구성하여 각각 실행
-- Docker Compose로 Kafka와 두 서버 동시 실행 스크립트 작성 가능
+```bash
+mvn clean package
+```
 
-## 3. Kafka와 Spring Boot 연동
+### 이벤트 프로듀서 서버 실행
+```bash
+cd event-producer
+mvn spring-boot:run
+```
 
-- `spring-kafka` 의존성 추가 및 설정
-- Kafka 서버 주소 (`localhost:9092`) 설정
-- Producer, Consumer 설정 bean 작성
+### 이벤트 컨슈머 서버 실행
+```bash
+cd event-consumer
+mvn spring-boot:run
+```
 
-## 4. 실습 단계
+## 4. API 사용 예시
 
-1. Docker로 Kafka와 Zookeeper 컨테이너 실행
-2. Spring Boot 프로젝트에서 Kafka 의존성 추가 및 설정
-3. 서버 1의 `/publish` 엔드포인트 호출해 메시지 전송
-4. 서버 2에서 메시지 로그 출력 확인
-5. UI 또는 터미널로 메시지 흐름 육안 확인 가능
+- **수동 발행:**
+  ```bash
+  curl -X POST \
+       -H "Content-Type: application/json" \
+       -d '{"message": "Hello Kafka"}' \
+       http://localhost:8080/publish
+  ```
+- **수신 메시지 조회:**
+  ```bash
+  curl http://localhost:8081/messages
+  ```
 
----
+## 5. 자동 발행 기능
+
+`event-producer/src/main/resources/application.yml`에서 `demo.auto-publish.enabled` 값을 `true`로 변경하면 설정된 간격(`interval`)마다 메시지가 자동 전송됩니다.
+
+## 6. 테스트
+
+모듈 별 기본 컨텍스트 로딩 테스트가 포함되어 있으며, Kafka 인스턴스 없이도 실행될 수 있도록 테스트 전용 설정이 추가되어 있습니다.
