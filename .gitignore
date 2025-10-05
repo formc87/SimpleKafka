@@ -1,0 +1,9 @@
+# Maven 빌드 아웃풋
+**/target/
+
+# IntelliJ IDEA 등 IDE 설정
+.idea/
+*.iml
+
+# OS 별 숨김 파일
+.DS_Store
