@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SSO 포털 - 로그인</title>
+    <link rel="stylesheet" th:href="@{/css/portal.css}">
+</head>
+<body>
+<div class="container">
+    <h1>SSO 포털</h1>
+    <p class="lead">프로듀서 사이트로 SSO를 체험해보세요.</p>
+
+    <div th:if="${registerSuccess}" class="alert success">
+        회원가입이 완료되었습니다. 로그인해 주세요.
+    </div>
+    <div th:if="${loginError}" class="alert error" th:text="${loginError}"></div>
+
+    <form th:action="@{/login}" th:object="${loginRequest}" method="post" class="form-card">
+        <label>이메일</label>
+        <input type="email" th:field="*{email}" placeholder="you@example.com" required>
+
+        <label>비밀번호</label>
+        <input type="password" th:field="*{password}" placeholder="비밀번호" required>
+
+        <button type="submit" class="primary">로그인</button>
+    </form>
+
+    <p class="small">계정이 없다면 <a th:href="@{/register}">회원가입</a>을 진행하세요.</p>
+</div>
+</body>
+</html>
