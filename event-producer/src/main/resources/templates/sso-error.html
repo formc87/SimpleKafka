@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SSO 오류</title>
+    <link rel="stylesheet" th:href="@{/css/producer.css}">
+</head>
+<body>
+<header class="top-bar">
+    <div class="brand">이벤트 프로듀서</div>
+    <nav>
+        <a href="/">홈</a>
+        <a href="/producer">프로듀서 홈</a>
+        <a href="/logout">로그아웃</a>
+    </nav>
+</header>
+
+<main class="content">
+    <section class="card">
+        <h1>SSO 연결에 실패했습니다</h1>
+        <p class="notice error" th:text="${error != null} ? error : 'SAML 응답을 확인할 수 없습니다.'">
+            SAML 응답을 확인할 수 없습니다.
+        </p>
+        <p>
+            포털에서 다시 로그인 후 접속을 시도하거나, 관리자에게 문의하세요.
+        </p>
+    </section>
+</main>
+</body>
+</html>

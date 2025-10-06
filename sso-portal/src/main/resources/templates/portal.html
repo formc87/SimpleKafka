@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SSO 포털 - 대시보드</title>
+    <link rel="stylesheet" th:href="@{/css/portal.css}">
+</head>
+<body>
+<div class="container">
+    <div class="portal-header">
+        <div>
+            <h1 th:text="${user.name} + '님, 안녕하세요!'">사용자님, 안녕하세요!</h1>
+            <p class="lead">아래 버튼을 누르면 프로듀서 사이트로 SAML SSO가 진행됩니다.</p>
+        </div>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="secondary">로그아웃</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>프로듀서 사이트</h2>
+        <p>
+            포털에서 인증된 사용자만 프로듀서 애플리케이션에 접근하도록 SAML Response를 만들어 전달합니다.
+        </p>
+        <a class="primary" th:href="@{/sso/producer}">프로듀서 사이트로 이동</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>프로듀서 대시보드</title>
+    <link rel="stylesheet" th:href="@{/css/producer.css}">
+</head>
+<body>
+<header class="top-bar">
+    <div class="brand">이벤트 프로듀서</div>
+    <nav>
+        <a href="/">홈</a>
+        <a href="/producer" class="active">프로듀서 홈</a>
+        <a href="/logout">로그아웃</a>
+    </nav>
+</header>
+
+<main class="content">
+    <section class="card">
+        <h1 th:text="${user.displayName} + '님 환영합니다'">홍길동님 환영합니다</h1>
+        <p>포털에서 전달된 SAML 속성을 기반으로 사용자 정보를 확인했습니다.</p>
+        <dl class="user-info">
+            <div>
+                <dt>이메일</dt>
+                <dd th:text="${user.email}">user@example.com</dd>
+            </div>
+            <div>
+                <dt>NameID</dt>
+                <dd th:text="${user.nameId}">user@example.com</dd>
+            </div>
+        </dl>
+        <p>
+            이제 REST API를 호출해 Kafka로 메시지를 발행하거나, 기존 React UI(포트 5173)를 통해 추가 기능을 체험해보세요.
+        </p>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>이벤트 프로듀서</title>
+    <link rel="stylesheet" th:href="@{/css/producer.css}">
+</head>
+<body>
+<header class="top-bar">
+    <div class="brand">이벤트 프로듀서</div>
+    <nav>
+        <a href="/">홈</a>
+        <a href="/producer">프로듀서 홈</a>
+        <a href="/logout">로그아웃</a>
+    </nav>
+</header>
+
+<main class="content">
+    <section class="card">
+        <h1>Kafka 이벤트 프로듀서</h1>
+        <p>
+            이 애플리케이션은 Kafka로 메시지를 발행하기 위한 REST API를 제공하며,
+            이제 SAML 기반 SSO 로그인을 통해 접근할 수 있습니다.
+        </p>
+        <div th:if="${user != null}" class="notice">
+            <strong th:text="${user.displayName} + '님 환영합니다!'">사용자님 환영합니다!</strong>
+            <p>프로듀서 페이지로 이동하여 추가 기능을 확인해보세요.</p>
+        </div>
+        <div th:if="${user == null}" class="notice info">
+            <strong>아직 로그인하지 않았습니다.</strong>
+            <p>SSO 포털에서 로그인한 뒤 링크를 클릭하면 이 페이지로 돌아올 수 있습니다.</p>
+        </div>
+    </section>
+</main>
+</body>
+</html>
