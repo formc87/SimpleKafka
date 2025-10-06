@@ -6,14 +6,10 @@ import { useEffect, useState } from 'react';
  */
 function App() {
   /** 인증된 사용자 정보 */
-  const [user, setUser] = useState(() => {
+  const [user] = useState(() => {
     const params = new URLSearchParams(window.location.search);
-    const displayName = params.get('displayName');
-    if (!displayName) {
-      return null;
-    }
     return {
-      displayName,
+      displayName: params.get('displayName') ?? '',
       email: params.get('email') ?? ''
     };
   });
@@ -23,67 +19,6 @@ function App() {
   const [status, setStatus] = useState('');
   /** 버튼 중복 클릭을 막기 위한 로딩 상태 */
   const [loading, setLoading] = useState(false);
-  const [checkingSession, setCheckingSession] = useState(true);
-
-  useEffect(() => {
-    if (window.location.search) {
-      const url = new URL(window.location.href);
-      url.search = '';
-      window.history.replaceState({}, '', url.toString());
-    }
-
-    const fetchSession = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/api/session', {
-          method: 'GET',
-          credentials: 'include'
-        });
-
-        if (response.ok) {
-          const sessionInfo = await response.json();
-          if (sessionInfo.authenticated) {
-            setUser({
-              displayName: sessionInfo.displayName,
-              email: sessionInfo.email ?? ''
-            });
-          } else {
-            window.location.href = 'http://localhost:8085/login';
-          }
-        } else if (response.status === 401) {
-          window.location.href = 'http://localhost:8085/login';
-        } else {
-          setStatus('세션 정보를 확인할 수 없습니다. 잠시 후 다시 시도해 주세요.');
-        }
-      } catch (error) {
-        console.error('세션 확인 실패', error);
-        setStatus('네트워크 오류로 세션을 확인할 수 없습니다.');
-      } finally {
-        setCheckingSession(false);
-      }
-    };
-
-    fetchSession();
-  }, []);
-
-  const isAuthenticated = Boolean(user?.displayName);
-
-  const handleLogout = async () => {
-    try {
-      await fetch('http://localhost:8080/logout', {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'include'
-      });
-    } catch (error) {
-      console.error('로그아웃 요청 실패', error);
-    } finally {
-      const form = document.createElement('form');
-      form.method = 'post';
-      form.action = 'http://localhost:8085/logout';
-      document.body.appendChild(form);
-      form.submit();
-    }
-  };
 
   useEffect(() => {
     if (window.location.search) {
@@ -117,11 +52,6 @@ function App() {
    * REST API를 호출해 메시지를 전송한다.
    */
   const handlePublish = async () => {
-    if (!isAuthenticated) {
-      setStatus('로그인 상태에서만 메시지를 발행할 수 있습니다.');
-      return;
-    }
-
     if (!message.trim()) {
       setStatus('메시지를 입력해 주세요.');
       return;
@@ -159,15 +89,9 @@ function App() {
     <div className="app-container">
       <header className="welcome-header">
         <div>
-          <h1>
-            {isAuthenticated
-              ? `${user.displayName}님 환영합니다!`
-              : checkingSession
-                ? '세션을 확인하는 중입니다'
-                : '로그인이 필요합니다'}
-          </h1>
+          <h1>{isAuthenticated ? `${user.displayName}님 환영합니다!` : '로그인이 필요합니다'}</h1>
           {isAuthenticated && <p className="user-email">{user.email}</p>}
-          {!isAuthenticated && !checkingSession && (
+          {!isAuthenticated && (
             <p className="user-email">SSO 포털에서 로그인한 후 다시 접속해 주세요.</p>
           )}
         </div>
