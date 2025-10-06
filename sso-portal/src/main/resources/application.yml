@@ -1,0 +1,10 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: sso-portal
+
+producer:
+  acs-url: http://localhost:8080/saml/acs
+  relay-state: /producer
+  issuer: SimpleSSO
