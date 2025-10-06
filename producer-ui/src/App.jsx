@@ -85,6 +85,34 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    if (window.location.search) {
+      const url = new URL(window.location.href);
+      url.search = '';
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, []);
+
+  const isAuthenticated = Boolean(user.displayName);
+
+  const handleLogout = async () => {
+    try {
+      await fetch('http://localhost:8080/logout', {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include'
+      });
+    } catch (error) {
+      console.error('로그아웃 요청 실패', error);
+    } finally {
+      const form = document.createElement('form');
+      form.method = 'post';
+      form.action = 'http://localhost:8085/logout';
+      document.body.appendChild(form);
+      form.submit();
+    }
+  };
+
   /**
    * REST API를 호출해 메시지를 전송한다.
    */
