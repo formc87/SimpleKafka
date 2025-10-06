@@ -27,5 +27,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins(ALLOWED_ORIGINS)
                 .allowedMethods("GET")
                 .allowCredentials(true);
+
+        registry.addMapping("/api/session")
+                .allowedOrigins(ALLOWED_ORIGINS)
+                .allowedMethods("GET")
+                .allowCredentials(true);
     }
 }
