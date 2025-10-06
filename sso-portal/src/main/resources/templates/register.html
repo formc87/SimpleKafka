@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SSO 포털 - 회원가입</title>
+    <link rel="stylesheet" th:href="@{/css/portal.css}">
+</head>
+<body>
+<div class="container">
+    <h1>회원가입</h1>
+    <form th:action="@{/register}" th:object="${user}" method="post" class="form-card">
+        <label>이름</label>
+        <input type="text" th:field="*{name}" placeholder="홍길동" required>
+        <div class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+
+        <label>이메일</label>
+        <input type="email" th:field="*{email}" placeholder="you@example.com" required>
+        <div class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
+        <label>비밀번호</label>
+        <input type="password" th:field="*{password}" placeholder="비밀번호" required>
+        <div class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
+        <button type="submit" class="primary">가입하기</button>
+    </form>
+    <p class="small"><a th:href="@{/login}">로그인으로 돌아가기</a></p>
+</div>
+</body>
+</html>

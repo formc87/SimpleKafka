@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>프로듀서 사이트 이동 중...</title>
+    <link rel="stylesheet" th:href="@{/css/portal.css}">
+    <meta http-equiv="refresh" content="3;url=#">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1>프로듀서 사이트로 이동 중입니다.</h1>
+        <p>브라우저가 자동으로 이동하지 않으면 아래 버튼을 눌러주세요.</p>
+        <form th:action="${acsUrl}" method="post">
+            <input type="hidden" name="SAMLResponse" th:value="${samlResponse}">
+            <input type="hidden" name="RelayState" th:value="${relayState}">
+            <button type="submit" class="primary">프로듀서 사이트 열기</button>
+        </form>
+    </div>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('form').submit();
+    });
+</script>
+</body>
+</html>

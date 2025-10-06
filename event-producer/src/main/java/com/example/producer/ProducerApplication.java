@@ -1,6 +1,7 @@
 package com.example.producer;
 
 import com.example.producer.config.AutoPublishProperties;
+import com.example.producer.config.SsoProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -11,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @SpringBootApplication
 @EnableScheduling
-@EnableConfigurationProperties(AutoPublishProperties.class)
+@EnableConfigurationProperties({AutoPublishProperties.class, SsoProperties.class})
 public class ProducerApplication {
 
     /**

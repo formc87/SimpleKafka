@@ -7,19 +7,61 @@ body {
   margin: 0;
 }
 
+
 .app-container {
-  max-width: 640px;
+  max-width: 720px;
   margin: 48px auto;
   background: #ffffff;
-  padding: 32px;
-  border-radius: 16px;
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
 }
 
-h1 {
+.welcome-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.welcome-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 30px;
+  color: #0f172a;
+}
+
+.user-email {
+  margin: 0;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.logout-button {
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #f1f5f9;
+}
+
+.card {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.card h2 {
   margin-top: 0;
   margin-bottom: 12px;
-  font-size: 28px;
+  font-size: 24px;
   color: #0f172a;
 }
 

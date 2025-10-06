@@ -80,3 +80,32 @@ npm run dev
 ## 6. 테스트
 
 모듈 별 기본 컨텍스트 로딩 테스트가 포함되어 있으며, Kafka 인스턴스 없이도 실행될 수 있도록 테스트 전용 설정이 추가되어 있습니다.
+
+## 7. SAML 기반 SSO 실습
+
+`sso-portal` 모듈과 `event-producer` 모듈을 활용해 간단한 SAML SSO 흐름을 체험할 수 있습니다.
+
+1. **포털 실행**
+   ```bash
+   cd sso-portal
+   mvn spring-boot:run
+   ```
+   - 서버는 `http://localhost:8085`에서 구동되며 회원가입과 로그인, 프로듀서 사이트로 이동하는 버튼을 제공합니다.
+
+2. **프로듀서 애플리케이션 실행**
+   ```bash
+   cd event-producer
+   mvn spring-boot:run
+   ```
+   - 포털에서 로그인한 뒤 `프로듀서 사이트로 이동` 버튼을 누르면 SAML Response가 생성되어 `/saml/acs` 엔드포인트로 전달되고, 세션이 설정됩니다.
+   - 성공적으로 연동되면 사용자는 자동으로 `http://localhost:5173` 프로듀서 UI로 이동하며, 화면 상단에 `홍길동님 환영합니다`와 같은 인사 메시지가 표시됩니다.
+
+3. **프론트엔드 UI 실행**
+   ```bash
+   cd producer-ui
+   npm install
+   npm run dev
+   ```
+   - 위 명령은 Vite 개발 서버를 `http://localhost:5173`에서 실행합니다. 해당 화면에서 메시지를 발행하거나 로그아웃 버튼으로 포털까지 함께 로그아웃할 수 있습니다.
+
+> 본 예제는 학습 목적의 단순화된 SAML 흐름으로, 서명/암호화 등의 보안 검증 절차는 포함되어 있지 않습니다.
