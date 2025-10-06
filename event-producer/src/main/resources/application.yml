@@ -16,3 +16,5 @@ demo:
     enabled: false
     interval: 5000
     message-template: "자동 발행 메시지 - %d"
+sso:
+  frontend-url: http://localhost:5173/

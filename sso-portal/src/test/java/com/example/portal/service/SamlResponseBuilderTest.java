@@ -18,7 +18,7 @@ class SamlResponseBuilderTest {
     void buildsBase64EncodedSamlResponse() {
         ProducerProperties properties = new ProducerProperties();
         properties.setAcsUrl("http://localhost:8080/saml/acs");
-        properties.setRelayState("/producer");
+        properties.setRelayState("http://localhost:5173/");
         properties.setIssuer("SimpleSSO");
 
         Clock fixedClock = Clock.fixed(Instant.parse("2024-01-01T00:00:00Z"), ZoneOffset.UTC);

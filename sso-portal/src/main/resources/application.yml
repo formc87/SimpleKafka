@@ -6,5 +6,5 @@ spring:
 
 producer:
   acs-url: http://localhost:8080/saml/acs
-  relay-state: /producer
+  relay-state: http://localhost:5173/
   issuer: SimpleSSO
