@@ -8,7 +8,7 @@ body {
 }
 
 .app-container {
-  max-width: 1080px;
+  max-width: 960px;
   margin: 48px auto;
   background: #ffffff;
   padding: 32px;
@@ -19,11 +19,6 @@ body {
 h1 {
   margin: 0 0 12px;
   font-size: 28px;
-  color: #0f172a;
-}
-
-h2 {
-  margin: 24px 0 12px;
   color: #0f172a;
 }
 
@@ -65,30 +60,6 @@ h2 {
   font-weight: 600;
 }
 
-.summary-card {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 16px 20px;
-  background-color: #f8fafc;
-  margin-bottom: 24px;
-}
-
-.summary-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.summary-table th,
-.summary-table td {
-  padding: 10px 12px;
-  border-bottom: 1px solid #e2e8f0;
-  text-align: left;
-}
-
-.summary-table thead {
-  background-color: #e2e8f0;
-}
-
 .table-wrapper {
   max-height: 480px;
   overflow: auto;
@@ -99,19 +70,17 @@ h2 {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 800px;
 }
 
 thead {
   background-color: #e2e8f0;
 }
 
-th,
-td {
+td,
+th {
   padding: 12px 16px;
   border-bottom: 1px solid #e2e8f0;
   text-align: left;
-  vertical-align: top;
 }
 
 .payload-cell {

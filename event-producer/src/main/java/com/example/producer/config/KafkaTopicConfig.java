@@ -17,11 +17,10 @@ public class KafkaTopicConfig {
 
     /**
      * KafkaAdmin이 애플리케이션 시작 시 토픽을 생성할 수 있도록 NewTopic 빈을 등록한다.
-     * 3개의 파티션과 3중 복제를 사용해 다중 브로커 환경 분산을 확인할 수 있도록 구성한다.
      * @return 생성할 토픽 정보
      */
     @Bean
     public NewTopic demoTopic() {
-        return new NewTopic(topicName, 3, (short) 3);
+        return new NewTopic(topicName, 1, (short) 1);
     }
 }
